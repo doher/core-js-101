@@ -99,16 +99,8 @@ function getFastestPromise(array) {
  *    });
  *
  */
-function chainPromises(array, action) {
-  return array.reduce((prev, curr) => {
-    console.log('prev', prev);
-    console.log('curr', curr);
-
-    return action(
-      prev.then((res) => res),
-      curr.then((res) => res),
-    );
-  }, array[0]);
+function chainPromises(/* array, action */) {
+  throw new Error('Not implemented');
 }
 
 module.exports = {
