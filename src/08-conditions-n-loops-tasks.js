@@ -423,8 +423,47 @@ function getMatrixProduct(/* m1, m2 */) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(position) {
+  function checkWinner(symbol) {
+    for (let i = 0; i < 3; i += 1) {
+      if (position[i].length < 3) {
+        // eslint-disable-next-line no-continue
+        continue;
+      }
+
+      if (position[i].every((element) => element === symbol)) {
+        return symbol;
+      }
+
+      if (position[0][i] === symbol && position[1][i] === symbol && position[2][i] === symbol) {
+        return symbol;
+      }
+    }
+
+    if (position[0][0] === symbol && position[1][1] === symbol && position[2][2] === symbol) {
+      return symbol;
+    }
+
+    if (position[0][2] === symbol && position[1][1] === symbol && position[2][0] === symbol) {
+      return symbol;
+    }
+
+    return undefined;
+  }
+
+  function getWinner() {
+    if (checkWinner('X') === 'X') {
+      return 'X';
+    }
+
+    if (checkWinner('0') === '0') {
+      return '0';
+    }
+
+    return undefined;
+  }
+
+  return getWinner();
 }
 
 module.exports = {
