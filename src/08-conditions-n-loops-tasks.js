@@ -273,8 +273,14 @@ function isCreditCardNumber(/* ccn */) {
  *   10000 ( 1+0+0+0+0 = 1 ) => 1
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
-function getDigitalRoot(/* num */) {
-  throw new Error('Not implemented');
+function getDigitalRoot(num) {
+  if (`${num}`.length > 1) {
+    // eslint-disable-next-line no-param-reassign
+    num = `${num}`.split('').reduce((prev, curr) => +prev + +curr, 0);
+    return getDigitalRoot(num);
+  }
+
+  return num;
 }
 
 /**
@@ -298,8 +304,31 @@ function getDigitalRoot(/* num */) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced(/* str */) {
-  throw new Error('Not implemented');
+function isBracketsBalanced(str) {
+  const bracketsConfig = [
+    ['(', ')'],
+    ['[', ']'],
+    ['{', '}'],
+    ['<', '>'],
+  ];
+  const bracketsConfigLength = bracketsConfig.length;
+
+  // eslint-disable-next-line space-in-parens
+  for (let i = 0; i < bracketsConfigLength; ) {
+    const brackets = bracketsConfig[i].join('');
+
+    if (str.includes(brackets)) {
+      // eslint-disable-next-line no-param-reassign
+      str = str.replace(brackets, '');
+      i = 0;
+    } else {
+      i += 1;
+    }
+  }
+
+  const result = !str.length;
+
+  return result;
 }
 
 /**
